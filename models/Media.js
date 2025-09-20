@@ -47,6 +47,10 @@ const mediaSchema = new mongoose.Schema({
     ref: 'Tipo',
     required: true
   },
+  estado: {
+    type: String,
+    required: false
+  },
   fechaCreacion: {
     type: Date,
     default: Date.now

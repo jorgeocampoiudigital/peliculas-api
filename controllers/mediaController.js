@@ -82,7 +82,7 @@ const crearMedia = async (req, res) => {
   try {
     const {
       serial, titulo, sinopsis, url, imagenPortada, anioEstreno,
-      genero, director, productora, tipo
+      genero, director, productora, tipo, estado
     } = req.body;
     
     // Validar que el serial no exista
@@ -149,7 +149,8 @@ const crearMedia = async (req, res) => {
       genero,
       director,
       productora,
-      tipo
+      tipo, 
+      estado
     });
 
     const nuevaMedia = await media.save();
@@ -174,7 +175,7 @@ const actualizarMedia = async (req, res) => {
   try {
     const {
       serial, titulo, sinopsis, url, imagenPortada, anioEstreno,
-      genero, director, productora, tipo
+      genero, director, productora, tipo, estado
     } = req.body;
     
     const media = await Media.findById(req.params.id);
@@ -258,6 +259,7 @@ const actualizarMedia = async (req, res) => {
     if (sinopsis !== undefined) media.sinopsis = sinopsis;
     if (imagenPortada !== undefined) media.imagenPortada = imagenPortada;
     if (anioEstreno !== undefined) media.anioEstreno = anioEstreno;
+    if (estado !== undefined) media.estado = estado;
 
     const mediaActualizada = await media.save();
     await mediaActualizada.populate(['genero', 'director', 'productora', 'tipo']);

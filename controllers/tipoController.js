@@ -46,7 +46,7 @@ const obtenerTipo = async (req, res) => {
 // Crear un nuevo tipo
 const crearTipo = async (req, res) => {
   try {
-    const { nombre, descripcion } = req.body;
+    const { nombre, descripcion, estado } = req.body;
     
     // Validar que el nombre no exista
     const tipoExistente = await Tipo.findOne({ nombre });
@@ -59,7 +59,8 @@ const crearTipo = async (req, res) => {
     
     const tipo = new Tipo({
       nombre,
-      descripcion
+      descripcion,
+      estado
     });
 
     const nuevoTipo = await tipo.save();
@@ -81,7 +82,7 @@ const crearTipo = async (req, res) => {
 // Actualizar un tipo
 const actualizarTipo = async (req, res) => {
   try {
-    const { nombre, descripcion } = req.body;
+    const { nombre, descripcion, estado } = req.body;
     
     const tipo = await Tipo.findById(req.params.id);
     if (!tipo) {
@@ -104,6 +105,8 @@ const actualizarTipo = async (req, res) => {
     }
     
     if (descripcion !== undefined) tipo.descripcion = descripcion;
+
+    if (estado !== undefined) tipo.estado = estado;
 
     const tipoActualizado = await tipo.save();
     
